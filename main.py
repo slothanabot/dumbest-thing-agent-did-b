@@ -4,6 +4,10 @@ import os
 
 LINE = "My agent sent the confidential rate card to the wrong client, then hit reply-all to apologise \u2014 to the wrong client again."
 
+# The gate requires 1-200 characters of non-blank UTF-8 text; fail loudly
+# here rather than shipping an entry the scorer would mark invalid.
+assert 1 <= len(LINE.strip()) <= 200, "entry line must be 1-200 characters"
+
 
 def main() -> int:
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
